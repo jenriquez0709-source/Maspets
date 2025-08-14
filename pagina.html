@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maspets - Información, Alimentación y Adopción</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="loginModal" class="modal">
+    <div class="modal-content">
+    <span class="close" onclick="closeModal('loginModal')">&times;</span>
+    <h2>Iniciar Sesión</h2>
+    <form id="loginForm">
+    <input type="email" id="loginEmail" placeholder="Email" required>
+    <input type="password" id="loginPassword" placeholder="Contraseña" required>
+    <button type="submit">Iniciar Sesión</button>
+    <p>¿No tienes cuenta? <a href="#" onclick="switchToRegister()">Regístrate aquí</a></p>
+    </form>
+    </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+    <div class="modal-content">
+    <span class="close" onclick="closeModal('registerModal')">&times;</span>
+    <h2>Registro</h2>
+    <form id="registerForm">
+    <input type="text" id="registerName" placeholder="Nombre completo" required>
+    <input type="email" id="registerEmail" placeholder="Email" required>
+    <input type="tel" id="registerPhone" placeholder="Teléfono" required>
+    <input type="password" id="registerPassword" placeholder="Contraseña" required>
+    <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
+    <button type="submit">Registrarse</button>
+    <p>¿Ya tienes cuenta? <a href="#" onclick="switchToLogin()">Inicia sesión aquí</a></p>
+    </form>
+    </div>
+    </div>
+
+    <div id="profileModal" class="modal">
+    <div class="modal-content">
+    <span class="close" onclick="closeModal('profileModal')">&times;</span>
+    <h2>Mi Perfil</h2>
+    <div id="profileContent">
+    <div class="profile-info">
+    <h3>Información Personal</h3>
+    <p><strong>Nombre:</strong> <span id="profileName"></span></p>
+    <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+    <p><strong>Teléfono:</strong> <span id="profilePhone"></span></p>
+    <p><strong>Miembro desde:</strong> <span id="profileDate"></span></p>
+    </div>
+    <div class="profile-actions">
+    <h3>Mis Solicitudes</h3>
+    <div id="userRequests">
+    <p>No tienes solicitudes pendientes.</p>
+    </div>
+    <button onclick="editProfile()" class="edit-btn">Editar Perfil</button>
+    <button onclick="logout()" class="logout-btn">Cerrar Sesión</button>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <div id="animalModal" class="modal">
+    <div class="modal-content animal-detail">
+    <span class="close" onclick="closeModal('animalModal')">&times;</span>
+    <div id="animalDetailContent">
+    </div>
+    </div>
+    </div>
+
+    <header>
+    <div class="container">
+    <div class="header-content">
+    <div class="logo">
+    <h1>🐾 Maspets</h1>
+    <p>Tu guía completa para el cuidado, alimentación y adopción de mascotas</p>
+    </div>
+    <div class="user-actions">
+    <div id="guestActions">
+    <button onclick="openModal('loginModal')" class="btn-secondary">Iniciar Sesión</button>
+    <button onclick="openModal('registerModal')" class="btn-primary">Registrarse</button>
+    </div>
+    <div id="userActions" style="display: none;">
+    <span id="welcomeUser">Bienvenido, </span>
+    <button onclick="openModal('profileModal')" class="btn-profile">Mi Perfil</button>
+    <button onclick="logout()" class="btn-logout">Salir</button>
+    </div>
+    </div>
+    </div>
+    </div>
+    </header>
+
+    <nav>
+    <div class="container">
+    <ul>
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#informacion">Información</a></li>
+    <li><a href="#alimentacion">Alimentación</a></li>
+    <li><a href="#rescate">Búsqueda y Rescate</a></li>
+    <li><a href="#adopcion">Adopción</a></li>
+    </ul>
+    </div>
+    </nav>
+
+    <main>
+    <section id="inicio" class="hero">
+    <div class="container">
+    <h2>Bienvenido al mundo de los animales domésticos</h2>
+    <p>Aquí encontrarás toda la información que necesitas para cuidar, alimentar y dar amor a tu mascota. También puedes ayudar en la búsqueda de animales perdidos y encontrar tu nuevo compañero en adopción.</p>
+    <div class="hero-stats">
+    <div class="stat">
+    <h3>150+</h3>
+    <p>Animales rescatados</p>
+    </div>
+    <div class="stat">
+    <h3>89%</h3>
+    <p>Tasa de adopción</p>
+    </div>
+    <div class="stat">
+    <h3>500+</h3>
+    <p>Familias felices</p>
+    </div>
+    </div>
+    </div>
+    </section>
+
+    <section id="informacion">
+    <div class="container">
+    <h2>Información de Animales Domésticos</h2>
+    <div class="animals-grid">
+    <div class="animal-card" onclick="showAnimalInfo('perro')">
+    <h3>🐕 Perros</h3>
+    <p><strong>Características:</strong> Leales, protectores y muy sociables. Necesitan ejercicio diario y mucho cariño.</p>
+    <p><strong>Esperanza de vida:</strong> 10-15 años</p>
+    <p><strong>Cuidados básicos:</strong> Vacunas anuales, desparasitación, ejercicio diario y socialización.</p>
+    <button class="info-btn">Ver más información</button>
+    </div>
+    <div class="animal-card" onclick="showAnimalInfo('gato')">
+    <h3>🐱 Gatos</h3>
+    <p><strong>Características:</strong> Independientes, limpios y cariñosos. Excelentes cazadores naturales.</p>
+    <p><strong>Esperanza de vida:</strong> 12-18 años</p>
+    <p><strong>Cuidados básicos:</strong> Arenero limpio, rascadores, juguetes y revisiones veterinarias.</p>
+    <button class="info-btn">Ver más información</button>
+    </div>
+    <div class="animal-card" onclick="showAnimalInfo('ave')">
+    <h3>🐦 Aves</h3>
+    <p><strong>Características:</strong> Inteligentes, sociales y pueden aprender a hablar. Necesitan estimulación mental.</p>
+    <p><strong>Esperanza de vida:</strong> 5-80 años (según especie)</p>
+    <p><strong>Cuidados básicos:</strong> Jaula amplia, dieta variada, interacción social y juguetes.</p>
+    <button class="info-btn">Ver más información</button>
+    </div>
+    <div class="animal-card" onclick="showAnimalInfo('conejo')">
+    <h3>🐰 Conejos</h3>
+    <p><strong>Características:</strong> Tranquilos, pueden ser muy cariñosos y son herbívoros estrictos.</p>
+    <p><strong>Esperanza de vida:</strong> 8-12 años</p>
+    <p><strong>Cuidados básicos:</strong> Espacio para correr, dieta rica en fibra y revisiones dentales.</p>
+    <button class="info-btn">Ver más información</button>
+    </div>
+    </div>
+    </div>
+    </section>
+
+    <section id="alimentacion">
+    <div class="container">
+    <h2>Guía de Alimentación</h2>
+    <div class="feeding-guide">
+    <div class="feed-card">
+    <h3>Alimentación para Perros</h3>
+    <ul>
+    <li>Comida seca de alta calidad según su edad</li>
+    <li>2-3 comidas al día para adultos</li>
+    <li>Evitar: chocolate, uvas, cebolla, ajo</li>
+    <li>Agua fresca siempre disponible</li>
+    </ul>
+    </div>
+    <div class="feed-card">
+    <h3>Alimentación para Gatos</h3>
+    <ul>
+    <li>Comida húmeda y seca balanceada</li>
+    <li>Alimentación libre o 2-3 veces al día</li>
+    <li>Evitar: leche, atún en exceso, plantas tóxicas</li>
+    <li>Agua fresca y limpia diariamente</li>
+    </ul>
+    </div>
+    <div class="feed-card">
+    <h3>Alimentación para Aves</h3>
+    <ul>
+    <li>Mezcla de semillas específica para su especie</li>
+    <li>Frutas y verduras frescas diariamente</li>
+    <li>Evitar: aguacate, chocolate, sal, azúcar</li>
+    <li>Agua limpia cambiada diariamente</li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    </section>
+
+    <section id="rescate">
+    <div class="container">
+    <h2>Búsqueda y Rescate</h2>
+    <div class="rescue-section">
+    <div class="rescue-form">
+    <h3>Reportar Animal Perdido</h3>
+    <form id="lostAnimalForm">
+    <input type="text" placeholder="Nombre del animal" required>
+    <select required>
+    <option value="">Tipo de animal</option>
+    <option value="perro">Perro</option>
+    <option value="gato">Gato</option>
+    <option value="ave">Ave</option>
+    <option value="otro">Otro</option>
+    </select>
+    <textarea placeholder="Descripción detallada (color, tamaño, características especiales)" required></textarea>
+    <input type="text" placeholder="Última ubicación vista" required>
+    <input type="tel" placeholder="Teléfono de contacto" required>
+    <input type="email" placeholder="Email de contacto" required>
+    <button type="submit">Reportar Animal Perdido</button>
+    </form>
+    </div>
+    <div class="rescue-form">
+    <h3>Reportar Animal Encontrado</h3>
+    <form id="foundAnimalForm">
+    <select required>
+    <option value="">Tipo de animal</option>
+    <option value="perro">Perro</option>
+    <option value="gato">Gato</option>
+    <option value="ave">Ave</option>
+    <option value="otro">Otro</option>
+    </select>
+    <textarea placeholder="Descripción del animal encontrado" required></textarea>
+    <input type="text" placeholder="Ubicación donde fue encontrado" required>
+    <input type="date" placeholder="Fecha en que fue encontrado" required>
+    <input type="tel" placeholder="Tu teléfono de contacto" required>
+    <input type="email" placeholder="Tu email de contacto" required>
+    <button type="submit">Reportar Animal Encontrado</button>
+    </form>
+    </div>
+    </div>
+    </div>
+    </section>
+
+    <section id="adopcion">
+    <div class="container">
+    <h2>Adopción</h2>
+    <p class="adoption-intro">Dale una segunda oportunidad a estos hermosos animales que buscan un hogar lleno de amor.</p>
+    
+    <div class="adoption-grid">
+    <div class="adoption-card">
+    <div class="animal-image">🐕</div>
+    <h3>Luna - Perra</h3>
+    <p><strong>Edad:</strong> 2 años</p>
+    <p><strong>Raza:</strong> Mestiza</p>
+    <p><strong>Personalidad:</strong> Muy cariñosa, juguetona y buena con niños</p>
+    <p><strong>Estado:</strong> Vacunada y esterilizada</p>
+    <button class="adopt-btn" onclick="showAnimalDetail('luna')">Ver Detalles</button>
+    </div>
+    <div class="adoption-card">
+    <div class="animal-image">🐱</div>
+    <h3>Milo - Gato</h3>
+    <p><strong>Edad:</strong> 1 año</p>
+    <p><strong>Raza:</strong> Común europeo</p>
+    <p><strong>Personalidad:</strong> Tranquilo, independiente y muy limpio</p>
+    <p><strong>Estado:</strong> Vacunado y castrado</p>
+    <button class="adopt-btn" onclick="showAnimalDetail('milo')">Ver Detalles</button>
+    </div>
+    <div class="adoption-card">
+    <div class="animal-image">🐰</div>
+    <h3>Coco - Conejo</h3>
+    <p><strong>Edad:</strong> 6 meses</p>
+    <p><strong>Raza:</strong> Holandés</p>
+    <p><strong>Personalidad:</strong> Activo, curioso y sociable</p>
+    <p><strong>Estado:</strong> Saludable y desparasitado</p>
+    <button class="adopt-btn" onclick="showAnimalDetail('coco')">Ver Detalles</button>
+    </div>
+    <div class="adoption-card">
+    <div class="animal-image">🐕</div>
+    <h3>Max - Perro</h3>
+    <p><strong>Edad:</strong> 3 años</p>
+    <p><strong>Raza:</strong> Golden Retriever</p>
+    <p><strong>Personalidad:</strong> Energético, leal y protector</p>
+    <p><strong>Estado:</strong> Vacunado y esterilizado</p>
+    <button class="adopt-btn" onclick="showAnimalDetail('max')">Ver Detalles</button>
+    </div>
+    </div>
+    </div>
+    </section>
+    </main>
+
+    <footer>
+    
+    <!-- Modales: Política de Privacidad y Términos -->
+    <div id="privacyModal" class="modal">
+    <div class="legal-links" style="margin-top: 0.5rem;">
+        <a href="#" onclick="openModal('privacyModal'); return false;">Política de Privacidad</a>
+        <span style="color:#888; margin: 0 8px;">•</span>
+        <a href="#" onclick="openModal('termsModal'); return false;">Términos y Condiciones</a>
+    </div>
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('privacyModal')">&times;</span>
+        <h2>Política de Privacidad</h2>
+        <p>En Maspets valoramos y protegemos tu privacidad. Esta política describe qué datos recopilamos, cómo los usamos y qué opciones tienes.</p>
+        <h3>Datos que recopilamos</h3>
+        <ul>
+          <li>Datos de registro: nombre, correo electrónico y teléfono que nos proporcionas al crear tu cuenta.</li>
+          <li>Actividad en la plataforma: solicitudes de adopción, reportes de animales perdidos/encontrados y preferencias básicas.</li>
+          <li>Datos técnicos: información del navegador y uso básico para mejorar la experiencia (por ejemplo, almacenamiento local del navegador).</li>
+        </ul>
+        <h3>Cómo usamos tus datos</h3>
+        <ul>
+          <li>Para gestionar tu cuenta y brindarte acceso a funcionalidades como solicitudes y perfil.</li>
+          <li>Para comunicarte estados de solicitudes y dar seguimiento a reportes.</li>
+          <li>Para mejorar la seguridad, calidad y funcionalidad de Maspets.</li>
+        </ul>
+        <h3>Almacenamiento y seguridad</h3>
+        <p>Los datos de tu sesión y actividad se almacenan en tu navegador mediante almacenamiento local. Te recomendamos no compartir tu dispositivo y cerrar sesión al terminar.</p>
+        <h3>Tus derechos</h3>
+        <ul>
+          <li>Acceder, corregir o eliminar tu información de perfil desde “Mi Perfil”.</li>
+          <li>Solicitar la eliminación de tu cuenta escribiendo a nuestro correo de contacto.</li>
+        </ul>
+        <h3>Contacto</h3>
+        <p>Si tienes dudas sobre esta política, contáctanos en info@Maspets.com.</p>
+        <p><small>Última actualización: 13/08/2025</small></p>
+      </div>
+    </div>
+
+    <div id="termsModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('termsModal')">&times;</span>
+        <h2>Términos y Condiciones</h2>
+        <p>Al usar Maspets aceptas los siguientes términos y condiciones. Lee cuidadosamente antes de utilizar la plataforma.</p>
+        <h3>Uso de la plataforma</h3>
+        <ul>
+          <li>Debes proporcionar información veraz y mantener la confidencialidad de tus credenciales.</li>
+          <li>No está permitido utilizar Maspets para actividades ilegales, fraudulentas o que atenten contra el bienestar animal.</li>
+        </ul>
+        <h3>Contenido y responsabilidades</h3>
+        <ul>
+          <li>El contenido informativo es de carácter general. Para diagnósticos o tratamientos, consulta a un profesional veterinario.</li>
+          <li>Eres responsable del contenido que publiques en reportes o solicitudes.</li>
+        </ul>
+        <h3>Solicitudes de adopción y reportes</h3>
+        <ul>
+          <li>Las solicitudes no garantizan la adopción; están sujetas a validación por parte de los refugios o responsables.</li>
+          <li>Los datos de contacto podrán ser usados para coordinar procesos de adopción y verificación.</li>
+        </ul>
+        <h3>Limitación de responsabilidad</h3>
+        <p>Maspets no será responsable por pérdidas o daños derivados del uso de la plataforma más allá de lo permitido por la ley aplicable.</p>
+        <h3>Modificaciones</h3>
+        <p>Podemos actualizar estos términos y la política de privacidad. Los cambios se publicarán en esta página y serán efectivos al publicarse.</p>
+        <h3>Contacto</h3>
+        <p>Para consultas sobre estos términos, escríbenos a info@Maspets.com.</p>
+        <p><small>Vigente desde: 13/08/2025</small></p>
+      </div>
+    </div>
+
+    <div class="container">
+    <p>&copy; 2025 Maspets. Todos los derechos reservados.</p>
+    <p>Contacto: info@Maspets.com | Tel: (469) 123-4567</p>
+    </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
